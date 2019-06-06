@@ -64,7 +64,7 @@ namespace DaggerfallWorkshop.Game
         [fsObject("v1")]
         public class KeyBindData_v1
         {
-            public Dictionary<KeyCode, Actions> actionKeyBinds;
+            public Dictionary<KeyCode, string> actionKeyBinds;
         }
 
         #endregion
@@ -190,6 +190,7 @@ namespace DaggerfallWorkshop.Game
 
 
             MountHorse,
+            Unknown,
         }
 
         #endregion
@@ -455,7 +456,13 @@ namespace DaggerfallWorkshop.Game
             string path = GetKeyBindsSavePath();
 
             KeyBindData_v1 keyBindsData = new KeyBindData_v1();
-            keyBindsData.actionKeyBinds = actionKeyDict;
+            keyBindsData.actionKeyBinds = new Dictionary<KeyCode, string>();
+
+            foreach (var item in actionKeyDict)
+            {
+                keyBindsData.actionKeyBinds.Add(item.Key, item.Value.ToString());
+            }
+
             string json = SaveLoadManager.Serialize(keyBindsData.GetType(), keyBindsData);
             File.WriteAllText(path, json);
             RaiseSavedKeyBindsEvent();
@@ -761,10 +768,27 @@ namespace DaggerfallWorkshop.Game
             KeyBindData_v1 keyBindsData = SaveLoadManager.Deserialize(typeof(KeyBindData_v1), json) as KeyBindData_v1;
             foreach(var item in keyBindsData.actionKeyBinds)
             {
-                if (!actionKeyDict.ContainsKey(item.Key))
-                    actionKeyDict.Add(item.Key, item.Value);
+                var actionVal = ActionNameToEnum(item.Value);
+                if (!actionKeyDict.ContainsKey(item.Key) && actionVal != Actions.Unknown)
+                    actionKeyDict.Add(item.Key, actionVal);
             }
             RaiseLoadedKeyBindsEvent();
+        }
+
+        static Actions ActionNameToEnum(string value)
+        {
+            Actions action;
+
+            try
+            {
+                action = (Actions) Enum.Parse(typeof(Actions), value, true);
+                return action;
+            }
+            catch (ArgumentException)
+            {
+                DaggerfallUnity.LogMessage("Unknown key action detected: " + value, true);
+                return Actions.Unknown;
+            }
         }
 
         #endregion
