@@ -154,6 +154,7 @@ namespace DaggerfallWorkshop.Game
 
             Rest,
             Transport,
+            MountHorse,
             StealMode,
             GrabMode,
             InfoMode,
@@ -589,6 +590,7 @@ namespace DaggerfallWorkshop.Game
 
             TestSetBinding(KeyCode.R, Actions.Rest);
             TestSetBinding(KeyCode.T, Actions.Transport);
+            TestSetBinding(KeyCode.G, Actions.MountHorse);
             TestSetBinding(KeyCode.F1, Actions.StealMode);
             TestSetBinding(KeyCode.F2, Actions.GrabMode);
             TestSetBinding(KeyCode.F3, Actions.InfoMode);
