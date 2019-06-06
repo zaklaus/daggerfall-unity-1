@@ -38,6 +38,7 @@ namespace DaggerfallWorkshop.Game
 
         KeyCode[] reservedKeys = new KeyCode[] { KeyCode.Escape, KeyCode.BackQuote };
         Dictionary<KeyCode, Actions> actionKeyDict = new Dictionary<KeyCode, Actions>();
+        Dictionary<KeyCode, string> unknownActions = new Dictionary<KeyCode, string>();
         List<Actions> currentActions = new List<Actions>();
         List<Actions> previousActions = new List<Actions>();
         bool isPaused;
@@ -463,6 +464,13 @@ namespace DaggerfallWorkshop.Game
                 keyBindsData.actionKeyBinds.Add(item.Key, item.Value.ToString());
             }
 
+            // If unknown actions were detected in this run, make sure we append them back to the settings file, so we won't break
+            // the newer builds potentially using them.
+            foreach (var item in unknownActions)
+            {
+                keyBindsData.actionKeyBinds.Add(item.Key, item.Value);
+            }
+
             string json = SaveLoadManager.Serialize(keyBindsData.GetType(), keyBindsData);
             File.WriteAllText(path, json);
             RaiseSavedKeyBindsEvent();
@@ -771,6 +779,12 @@ namespace DaggerfallWorkshop.Game
                 var actionVal = ActionNameToEnum(item.Value);
                 if (!actionKeyDict.ContainsKey(item.Key) && actionVal != Actions.Unknown)
                     actionKeyDict.Add(item.Key, actionVal);
+                else
+                {
+                    // This action is unknown in this game, make sure we still keep it so once we save the settings, we
+                    // won't discard them.
+                    unknownActions.Add(item.Key, item.Value);
+                }
             }
             RaiseLoadedKeyBindsEvent();
         }
