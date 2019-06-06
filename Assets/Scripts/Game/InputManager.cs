@@ -154,7 +154,6 @@ namespace DaggerfallWorkshop.Game
 
             Rest,
             Transport,
-            MountHorse,
             StealMode,
             GrabMode,
             InfoMode,
@@ -188,6 +187,9 @@ namespace DaggerfallWorkshop.Game
 
             QuickSave,
             QuickLoad,
+
+
+            MountHorse,
         }
 
         #endregion
@@ -519,6 +521,8 @@ namespace DaggerfallWorkshop.Game
 
             SetBinding(KeyCode.F9, Actions.QuickSave);
             SetBinding(KeyCode.F12, Actions.QuickLoad);
+
+            SetBinding(KeyCode.G, Actions.MountHorse);
         }
 
         #endregion
@@ -590,7 +594,6 @@ namespace DaggerfallWorkshop.Game
 
             TestSetBinding(KeyCode.R, Actions.Rest);
             TestSetBinding(KeyCode.T, Actions.Transport);
-            TestSetBinding(KeyCode.G, Actions.MountHorse);
             TestSetBinding(KeyCode.F1, Actions.StealMode);
             TestSetBinding(KeyCode.F2, Actions.GrabMode);
             TestSetBinding(KeyCode.F3, Actions.InfoMode);
@@ -625,6 +628,8 @@ namespace DaggerfallWorkshop.Game
 
             TestSetBinding(KeyCode.F9, Actions.QuickSave);
             TestSetBinding(KeyCode.F12, Actions.QuickLoad);
+
+            TestSetBinding(KeyCode.G, Actions.MountHorse);
         }
 
         // Apply force to horizontal axis
