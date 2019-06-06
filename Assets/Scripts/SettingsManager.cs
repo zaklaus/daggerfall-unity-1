@@ -163,6 +163,7 @@ namespace DaggerfallWorkshop
         public bool CombatVoices { get; set; }
         public bool EnemyInfighting { get; set; }
         public bool EnhancedCombatAI { get; set; }
+        public bool HorseMountShortcut { get; set; }
 
         #endregion
 
@@ -268,6 +269,7 @@ namespace DaggerfallWorkshop
             CombatVoices = GetBool(sectionEnhancements, "CombatVoices");
             EnemyInfighting = GetBool(sectionEnhancements, "EnemyInfighting");
             EnhancedCombatAI = GetBool(sectionEnhancements, "EnhancedCombatAI");
+            HorseMountShortcut = GetBool(sectionEnhancements, "HorseMountShortcut");
         }
 
         /// <summary>
@@ -364,6 +366,7 @@ namespace DaggerfallWorkshop
             SetBool(sectionEnhancements, "CombatVoices", CombatVoices);
             SetBool(sectionEnhancements, "EnemyInfighting", EnemyInfighting);
             SetBool(sectionEnhancements, "EnhancedCombatAI", EnhancedCombatAI);
+            SetBool(sectionEnhancements, "HorseMountShortcut", HorseMountShortcut);
 
             // Write settings to persistent file
             WriteSettingsFile();

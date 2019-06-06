@@ -238,7 +238,7 @@ namespace DaggerfallWorkshop.Game
                 }
             }
 
-            if (InputManager.Instance.ActionComplete(InputManager.Actions.MountHorse))
+            if (DaggerfallUnity.Settings.HorseMountShortcut && InputManager.Instance.ActionComplete(InputManager.Actions.MountHorse))
             {
                 if (GameManager.Instance.IsPlayerInside)
                 {

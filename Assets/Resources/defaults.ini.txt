@@ -100,3 +100,4 @@ PlayerTorchFromItems=False
 CombatVoices=True
 EnemyInfighting=True
 EnhancedCombatAI=True
+HorseMountShortcut=True
